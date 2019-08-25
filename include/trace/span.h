@@ -1,28 +1,42 @@
-#include <map>
-#include <cstdint>
-#include <chrono>
+#ifndef INCLUDE_TRACE_SPAN_H_
+#define INCLUDE_TRACE_SPAN_H_
 #include <variant>
+#include <cstdint>
+#include <map>
+#include <memory>
+#include <chrono>
 #include <string>
 
-#include "trace/span-context.h"
+#include "./span-context.h"
 
 class Span {
-  std::string name;
-  const SpanContext* context;
-  const SpanContext* const parent_context;
-  std::chrono::milliseconds start_time;
-  std::chrono::milliseconds end_time;
-  std::map<std::string, std::variant<std::string, int64_t, bool, double>> attributes;
-public:
+ public:
   Span(std::string, const SpanContext* const);
   void set_name(std::string);
   void end();
   void end(std::chrono::milliseconds);
   bool is_ended() const;
-  void add_attribute(std::string, double);
-  void add_attribute(std::string, bool);
-  void add_attribute(std::string, int64_t);
-  void add_attribute(std::string, std::string);
+  void add_attribute(std::string, const double);
+  void add_attribute(std::string, const bool);
+  void add_attribute(std::string, const int64_t);
+  void add_attribute(std::string, const std::string);
   const SpanContext* get_context() const;
   const SpanContext* get_parent_context() const;
+
+ private:
+  std::string name;
+  const SpanContext* context;
+  const SpanContext* const parent_context;
+  std::chrono::milliseconds start_time;
+  std::chrono::milliseconds end_time;
+  std::map<
+    std::string,
+    std::variant<
+      std::unique_ptr<const std::string>,
+      std::unique_ptr<const int64_t>,
+      std::unique_ptr<const bool>,
+      std::unique_ptr<const double>
+    >
+  > attributes;
 };
+#endif  // INCLUDE_TRACE_SPAN_H_

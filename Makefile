@@ -1,13 +1,12 @@
-NAME=cpp-ot
 SRC_DIR := ./src
 OBJ_DIR := ./out
-SRC_FILES := $(wildcard $(SRC_DIR)/**/*.cpp)
-OBJ_FILES := $(patsubst $(SRC_DIR)/%.cpp,$(OBJ_DIR)/%.o,$(SRC_FILES))
+SRC_FILES := $(wildcard $(SRC_DIR)/**/*.cc)
+OBJ_FILES := $(patsubst $(SRC_DIR)/%.cc,$(OBJ_DIR)/%.o,$(SRC_FILES))
 CXX=g++
 
 MKDIR_P = mkdir -p
 
-.PHONY: clean test directories
+.PHONY: clean test directories lint
 
 INCLUDES_DIR = ./include
 
@@ -15,17 +14,19 @@ CXXFLAGS=-std=c++17 -Wall -Werror -g -O3 -Wextra -Wstrict-aliasing=2 \
 		 -Wformat=2 -Wno-format-nonliteral -Wshadow -Wpointer-arith -Wcast-qual \
 		 -Wmissing-prototypes -Wno-missing-braces -pedantic-errors -I$(INCLUDES_DIR)
 
-all: compile
+all: lint compile
 
-test: compile
+test: lint compile
+
+lint:
+	./cpplint.py src/**/*.cc include/**/*.h
 
 compile: $(OBJ_FILES)
 
 clean:
 	$(RM) ./out/**/*.o
-	$(RM) $(NAME)
 
-$(OBJ_DIR)/%.o: $(SRC_DIR)/%.cpp $(INCLUDES_DIR)/%.h $(OBJ_DIR)/$(dir %)
+$(OBJ_DIR)/%.o: $(SRC_DIR)/%.cc $(INCLUDES_DIR)/%.h $(OBJ_DIR)/$(dir %)
 	$(CXX) $(CXXFLAGS) -o $@ -c $<
 
 $(OBJ_DIR)/%:

@@ -3,7 +3,7 @@
 
 #include "trace/span-context.h"
 
-SpanContext::SpanContext(const SpanContext* const parent){
+SpanContext::SpanContext(const SpanContext* const parent) {
   std::random_device rd;
   if (parent == nullptr) {
     std::generate(trace_id->begin(), trace_id->end(), [&](){return rd();});
