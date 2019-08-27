@@ -7,8 +7,13 @@ std::chrono::milliseconds get_timestamp() {
   );
 }
 
-Span::Span(std::string name, const SpanContext* const parent = nullptr)
-  : name(name),
+Span::Span(
+    std::string name,
+    Tracer* const t,
+    const SpanContext* const parent = nullptr
+  ) :
+  tracer(t),
+  name(name),
   context(new SpanContext(parent)),
   parent_context(parent),
   start_time(get_timestamp()),
@@ -25,6 +30,7 @@ void Span::end() {
 
 void Span::end(std::chrono::milliseconds e) {
   end_time = e;
+  tracer->on_span_end(this);
 }
 
 bool Span::is_ended() const {

@@ -3,6 +3,7 @@ Tracer::Tracer(): current_span(nullptr) {}
 Span* Tracer::start_span(std::string name) {
   auto span = new Span(
     name,
+    this,
     current_span ? current_span->get_context() : nullptr
   );
   current_span = span;
@@ -16,3 +17,6 @@ Span* Tracer::get_current_span() const {
 void Tracer::set_current_span(Span* s) {
   current_span = s;
 }
+
+// void Tracer::on_span_end(const Span* const span) {
+// }

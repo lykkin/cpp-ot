@@ -8,10 +8,12 @@
 #include <string>
 
 #include "./span-context.h"
+#include "./tracer.h"
 
+class Tracer;
 class Span {
  public:
-  Span(std::string, const SpanContext* const);
+  Span(std::string, Tracer* const, const SpanContext* const);
   void set_name(std::string);
   void end();
   void end(std::chrono::milliseconds);
@@ -24,6 +26,7 @@ class Span {
   const SpanContext* get_parent_context() const;
 
  private:
+  Tracer* const tracer;
   std::string name;
   const SpanContext* context;
   const SpanContext* const parent_context;
