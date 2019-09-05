@@ -19,4 +19,5 @@ void Tracer::set_current_span(Span* s) {
 }
 
 void Tracer::on_span_end(const Span* const span) {
+  span->get_context()->get_trace_id();
 }
