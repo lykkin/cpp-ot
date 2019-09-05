@@ -14,14 +14,16 @@ class Tracer;
 class Span {
  public:
   Span(std::string, Tracer* const, const SpanContext* const);
+  Span(std::string, Tracer* const);
   void set_name(std::string);
+  std::string get_name() const;
   void end();
   void end(std::chrono::milliseconds);
   bool is_ended() const;
-  void add_attribute(std::string, const double);
-  void add_attribute(std::string, const bool);
-  void add_attribute(std::string, const int64_t);
-  void add_attribute(std::string, const std::string);
+  template<typename T>
+  void add_attribute(std::string, const T);
+  template<typename T>
+  T get_attribute(std::string k) const;
   const SpanContext* get_context() const;
   const SpanContext* get_parent_context() const;
 

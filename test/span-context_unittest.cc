@@ -1,6 +1,5 @@
 #include "gtest/gtest.h"
 #include "trace/span-context.h"
-
 namespace {
 TEST(SpanContext, Parentless) {
   auto ctx = new SpanContext(nullptr);

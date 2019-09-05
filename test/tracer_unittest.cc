@@ -1,6 +1,4 @@
-#include <iostream>
-
-int main() {
-  std::cout << "hello" << std::endl;
-  return 0;
+#include "gtest/gtest.h"
+#include "trace/tracer.h"
+namespace {
 }
