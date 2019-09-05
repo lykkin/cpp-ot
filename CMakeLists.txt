@@ -17,7 +17,7 @@ set(open-telemetry_build_include_dirs
   "${open-telemetry_SOURCE_DIR}")
 include_directories(${open-telemetry_build_include_dirs})
 
-add_library(open-telemetry "${cxx_strict}" src/open-telemetry.cc)
+add_library(open-telemetry src/open-telemetry.cc)
 
 enable_testing()
 add_subdirectory(test)
