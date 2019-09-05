@@ -2,6 +2,7 @@ out
 
 *.a
 # cmake stuff
+DartConfiguration.tcl
 CMakeLists.txt.user
 CMakeCache.txt
 CMakeFiles
