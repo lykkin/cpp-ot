@@ -13,3 +13,11 @@ SpanContext::SpanContext(const SpanContext* const parent) {
   }
   std::generate(span_id.begin(), span_id.end(), [&](){return rd();});
 }
+
+TraceId SpanContext::get_trace_id() const {
+  return *trace_id;
+}
+
+SpanId SpanContext::get_span_id() const {
+  return span_id;
+}

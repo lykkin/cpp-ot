@@ -1,5 +1,6 @@
 out
 
+*.a
 # cmake stuff
 CMakeLists.txt.user
 CMakeCache.txt

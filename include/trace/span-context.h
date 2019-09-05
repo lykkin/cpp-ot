@@ -16,6 +16,8 @@ typedef std::array<char, 8> SpanId;
 class SpanContext final {
  public:
   explicit SpanContext(const SpanContext* const);
+  TraceId get_trace_id() const;
+  SpanId get_span_id() const;
  private:
   TraceId* trace_id;
   SpanId span_id;

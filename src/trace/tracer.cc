@@ -18,5 +18,5 @@ void Tracer::set_current_span(Span* s) {
   current_span = s;
 }
 
-// void Tracer::on_span_end(const Span* const span) {
-// }
+void Tracer::on_span_end(const Span* const span) {
+}
