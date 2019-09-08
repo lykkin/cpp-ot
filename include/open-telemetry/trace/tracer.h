@@ -11,7 +11,7 @@ class Tracer {
   Tracer();
   Span* get_current_span() const;
   void set_current_span(Span*);
-  Span* start_span(std::string);
+  Span* start_span(const std::string&);
   void on_span_end(const Span* const);
 
  private:

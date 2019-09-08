@@ -15,8 +15,8 @@ namespace trace {
 class Tracer;
 class Span {
  public:
-  Span(std::string, Tracer* const, const SpanContext* const);
-  Span(std::string, Tracer* const);
+  Span(const std::string&, Tracer* const, const SpanContext* const);
+  Span(const std::string&, Tracer* const);
   void set_name(std::string);
   std::string get_name() const;
   void end();
@@ -27,9 +27,9 @@ class Span {
   std::chrono::milliseconds get_end_time() const;
   bool is_ended() const;
   template<typename T>
-  void add_attribute(std::string, const T);
+  void add_attribute(const std::string&, const T);
   template<typename T>
-  T get_attribute(std::string k) const;
+  T get_attribute(const std::string&) const;
   const SpanContext* get_context() const;
   const SpanContext* get_parent_context() const;
 

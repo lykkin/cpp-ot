@@ -5,7 +5,7 @@
 namespace ot {
 namespace trace {
 Tracer::Tracer(): current_span(nullptr) {}
-Span* Tracer::start_span(std::string name) {
+Span* Tracer::start_span(const std::string& name) {
   auto span = new Span(
     name,
     this,
