@@ -1,8 +1,10 @@
 #include <algorithm>
 #include <random>
 
-#include "trace/span-context.h"
+#include "open-telemetry/trace/span-context.h"
 
+namespace ot {
+namespace trace {
 SpanContext::SpanContext(const SpanContext* const parent) {
   std::random_device rd;
   if (parent == nullptr) {
@@ -21,3 +23,5 @@ TraceId SpanContext::get_trace_id() const {
 SpanId SpanContext::get_span_id() const {
   return span_id;
 }
+}  // namespace trace
+}  // namespace ot

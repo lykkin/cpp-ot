@@ -1,5 +1,5 @@
-#ifndef INCLUDE_TRACE_SPAN_H_
-#define INCLUDE_TRACE_SPAN_H_
+#ifndef INCLUDE_OPEN_TELEMETRY_TRACE_SPAN_H_
+#define INCLUDE_OPEN_TELEMETRY_TRACE_SPAN_H_
 #include <variant>
 #include <cstdint>
 #include <map>
@@ -10,6 +10,8 @@
 #include "./span-context.h"
 #include "./tracer.h"
 
+namespace ot {
+namespace trace {
 class Tracer;
 class Span {
  public:
@@ -36,7 +38,7 @@ class Span {
   std::chrono::milliseconds end_time;
   std::map<
     std::string,
-    std::variant<
+   std::variant<
       std::unique_ptr<const std::string>,
       std::unique_ptr<const int64_t>,
       std::unique_ptr<const bool>,
@@ -44,4 +46,6 @@ class Span {
     >
   > attributes;
 };
-#endif  // INCLUDE_TRACE_SPAN_H_
+}  // namespace trace
+}  // namespace ot
+#endif  // INCLUDE_OPEN_TELEMETRY_TRACE_SPAN_H_

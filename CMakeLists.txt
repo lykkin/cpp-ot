@@ -18,6 +18,9 @@ set(open-telemetry_build_include_dirs
 include_directories(${open-telemetry_build_include_dirs})
 
 add_library(open-telemetry src/open-telemetry.cc)
+add_custom_target(lint
+  COMMAND ./cpplint.py src/**/*.cc include/**/*.h include/**/**/*.h
+)
 
 enable_testing()
 add_subdirectory(test)

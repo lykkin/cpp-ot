@@ -1,4 +1,5 @@
 #include "gtest/gtest.h"
-#include "trace/tracer.h"
+#include "open-telemetry/trace/tracer.h"
+using namespace ot::trace;
 namespace {
 }

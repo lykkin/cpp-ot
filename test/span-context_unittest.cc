@@ -1,5 +1,6 @@
 #include "gtest/gtest.h"
-#include "trace/span-context.h"
+#include "open-telemetry/trace/span-context.h"
+using namespace ot::trace;
 namespace {
 TEST(SpanContext, Parentless) {
   auto ctx = new SpanContext(nullptr);

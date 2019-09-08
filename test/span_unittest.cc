@@ -1,6 +1,7 @@
 #include "gtest/gtest.h"
-#include "trace/span.h"
-#include "trace/tracer.h"
+#include "open-telemetry/trace/span.h"
+#include "open-telemetry/trace/tracer.h"
+using namespace ot::trace;
 namespace {
 TEST(Span, ConstructorNoParent){
   auto t = new Tracer();

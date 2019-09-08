@@ -1,8 +1,10 @@
-#ifndef INCLUDE_TRACE_TRACER_H_
-#define INCLUDE_TRACE_TRACER_H_
+#ifndef INCLUDE_OPEN_TELEMETRY_TRACE_TRACER_H_
+#define INCLUDE_OPEN_TELEMETRY_TRACE_TRACER_H_
 #include <string>
 #include "./span.h"
 
+namespace ot {
+namespace trace {
 class Span;
 class Tracer {
  public:
@@ -16,4 +18,6 @@ class Tracer {
   Span* current_span;
   // Sampler sampler;
 };
-#endif  // INCLUDE_TRACE_TRACER_H_
+}  // namespace trace
+}  // namespace ot
+#endif  // INCLUDE_OPEN_TELEMETRY_TRACE_TRACER_H_

@@ -1,4 +1,4 @@
-#include "trace/span.h"
+#include "open-telemetry/trace/span.h"
 
 std::chrono::milliseconds get_timestamp();
 std::chrono::milliseconds get_timestamp() {
@@ -7,6 +7,8 @@ std::chrono::milliseconds get_timestamp() {
   );
 }
 
+namespace ot {
+namespace trace {
 Span::Span(
     std::string name,
     Tracer* const t,
@@ -65,22 +67,22 @@ void Span::add_attribute<int64_t>(std::string k, const int64_t v) {
 
 template<>
 double Span::get_attribute<double>(std::string k) const {
-  return *(std::get<std::unique_ptr<const double>>(attributes.at(k)).get());
+  return *std::get<std::unique_ptr<const double>>(attributes.at(k)).get();
 }
 
 template<>
 std::string Span::get_attribute<std::string>(std::string k) const {
-  return *(std::get<std::unique_ptr<const std::string>>(attributes.at(k)).get());
+  return *std::get<std::unique_ptr<const std::string>>(attributes.at(k)).get();
 }
 
 template<>
 bool Span::get_attribute<bool>(std::string k) const {
-  return *(std::get<std::unique_ptr<const bool>>(attributes.at(k)).get());
+  return *std::get<std::unique_ptr<const bool>>(attributes.at(k)).get();
 }
 
 template<>
 int64_t Span::get_attribute<int64_t>(std::string k) const {
-  return *(std::get<std::unique_ptr<const int64_t>>(attributes.at(k)).get());
+  return *std::get<std::unique_ptr<const int64_t>>(attributes.at(k)).get();
 }
 
 const SpanContext* Span::get_context() const {
@@ -90,3 +92,5 @@ const SpanContext* Span::get_context() const {
 const SpanContext* Span::get_parent_context() const {
   return parent_context;
 }
+}  // namespace trace
+}  // namespace ot
