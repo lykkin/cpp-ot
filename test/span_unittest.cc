@@ -37,6 +37,14 @@ TEST(Span, IntAttributes){
   EXPECT_EQ(s->get_attribute<int64_t>("test"), 12341234);
 }
 
+TEST(Span, OverwritingAttributes){
+  auto t = new Tracer();
+  auto s = new Span("test name", t);
+  s->add_attribute<std::string>("test", "test value");
+  s->add_attribute<int64_t>("test", 12341234);
+  EXPECT_EQ(s->get_attribute<int64_t>("test"), 12341234);
+}
+
 TEST(Span, MismatchedTypeAttributes){
   auto t = new Tracer();
   auto s = new Span("test name", t);
@@ -73,18 +81,20 @@ TEST(Span, SpecifiedEnd){
   ASSERT_EQ(s->get_end_time(), std::chrono::milliseconds(123));
   ASSERT_TRUE(s->is_ended());
 }
+
 TEST(Span, DurationTest){
   auto t = new Tracer();
   auto s = new Span("test name", t);
-  ASSERT_FALSE(s->is_ended());
+
+  // waste some time
   auto start = std::chrono::system_clock::now();
   auto diff = std::chrono::system_clock::now() - start;
-  while (diff < std::chrono::seconds(1)) {
+  while (diff < std::chrono::milliseconds(10)) {
     diff = std::chrono::system_clock::now() - start;
   }
+
   s->end();
-  ASSERT_TRUE(s->get_duration() >= std::chrono::seconds(1));
-  ASSERT_TRUE(s->is_ended());
+  ASSERT_TRUE(s->get_duration() >= std::chrono::milliseconds(10));
 }
 }  // namespace trace
 }  // namespace ot
