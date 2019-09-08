@@ -21,6 +21,9 @@ class Span {
   std::string get_name() const;
   void end();
   void end(std::chrono::milliseconds);
+  std::chrono::milliseconds get_duration() const;
+  std::chrono::milliseconds get_start_time() const;
+  std::chrono::milliseconds get_end_time() const;
   bool is_ended() const;
   template<typename T>
   void add_attribute(std::string, const T);

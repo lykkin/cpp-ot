@@ -9,11 +9,7 @@ std::chrono::milliseconds get_timestamp() {
 
 namespace ot {
 namespace trace {
-Span::Span(
-    std::string name,
-    Tracer* const t,
-    const SpanContext* const parent
-  ) :
+Span::Span(std::string name, Tracer* const t, const SpanContext* const parent) :
   tracer(t),
   name(name),
   context(new SpanContext(parent)),
@@ -32,8 +28,20 @@ std::string Span::get_name() const {
   return name;
 }
 
+std::chrono::milliseconds Span::get_duration() const {
+  return end_time - start_time;
+}
+
+std::chrono::milliseconds Span::get_start_time() const {
+  return start_time;
+}
+
+std::chrono::milliseconds Span::get_end_time() const {
+  return end_time;
+}
+
 void Span::end() {
-  end_time = get_timestamp();
+  end(get_timestamp());
 }
 
 void Span::end(std::chrono::milliseconds e) {
@@ -42,7 +50,7 @@ void Span::end(std::chrono::milliseconds e) {
 }
 
 bool Span::is_ended() const {
-  return end_time == std::chrono::milliseconds(0);
+  return end_time != std::chrono::milliseconds(0);
 }
 
 template<>

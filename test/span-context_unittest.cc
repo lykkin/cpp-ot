@@ -1,7 +1,7 @@
 #include "gtest/gtest.h"
 #include "open-telemetry/trace/span-context.h"
-using namespace ot::trace;
-namespace {
+namespace ot {
+namespace trace {
 TEST(SpanContext, Parentless) {
   auto ctx = new SpanContext(nullptr);
   EXPECT_EQ(sizeof(ctx->get_trace_id()), 16);
@@ -13,4 +13,5 @@ TEST(SpanContext, Parentful) {
   EXPECT_EQ(child->get_trace_id(), ctx->get_trace_id());
   EXPECT_EQ(sizeof(ctx->get_span_id()), 8);
 }
-}
+}  // namespace trace
+}  // namespace ot
