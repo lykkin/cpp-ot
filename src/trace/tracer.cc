@@ -27,11 +27,28 @@ void Tracer::on_span_end(const Span* const span) {
   std::cout << "{" << std::endl;
   std::cout << "  \"name\": \"" << span->get_name()
     << "\"," << std::endl;
-  std::cout << "  \"timestamp\": " << span->get_start_time().count()
+  std::cout << "  \"timestamp\": " << std::dec << span->get_start_time().count()
     << "," << std::endl;
-  std::cout << "  \"duration\": " << span->get_duration().count()
+  std::cout << "  \"duration\": " << std::dec << span->get_duration().count()
     << "," << std::endl;
   span->print_attributes();
+  if (auto&& parent = span->get_parent_context()) {
+    std::cout << "  \"parent_id\": \"";
+    for (auto& c : parent->get_span_id()) {
+      std::cout << std::hex << c;
+    }
+    std::cout << "\"," << std::endl;
+  }
+  std::cout << "  \"id\": \"";
+  for (auto& c : span->get_context()->get_span_id()) {
+    std::cout << std::hex << c;
+  }
+  std::cout << "\"," << std::endl;
+  std::cout << "  \"trace_id\": \"";
+  for (auto& c : span->get_context()->get_trace_id()) {
+    std::cout << std::hex << c;
+  }
+  std::cout << "\"" << std::endl;
   std::cout << "}" << std::endl;
 }
 }  // namespace trace

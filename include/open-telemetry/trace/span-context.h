@@ -5,8 +5,8 @@
 
 namespace ot {
 namespace trace {
-typedef std::array<char, 16> TraceId;
-typedef std::array<char, 8> SpanId;
+typedef std::array<int, 16/sizeof(int)> TraceId;
+typedef std::array<int, 8/sizeof(int)> SpanId;
 // typedef TraceOptions struct {
 //   bool recorded
 // }
