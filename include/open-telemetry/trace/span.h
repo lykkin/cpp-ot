@@ -21,6 +21,7 @@ class Span {
   std::string get_name() const;
   void end();
   void end(std::chrono::milliseconds);
+  void print_attributes() const;
   std::chrono::milliseconds get_duration() const;
   std::chrono::milliseconds get_start_time() const;
   std::chrono::milliseconds get_end_time() const;

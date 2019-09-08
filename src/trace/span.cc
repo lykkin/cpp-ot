@@ -1,3 +1,4 @@
+#include <iostream>
 #include "open-telemetry/trace/span.h"
 
 std::chrono::milliseconds get_timestamp();
@@ -51,6 +52,24 @@ void Span::end(std::chrono::milliseconds e) {
 
 bool Span::is_ended() const {
   return end_time != std::chrono::milliseconds(0);
+}
+
+void Span::print_attributes() const {
+  if (attributes.size() > 0) {
+    std::cout << "  \"attributes\": {" << std::endl;
+    for (auto&& [ key, att ] : attributes) {
+      if (auto s = std::get_if<std::unique_ptr<const std::string>>(&att)) {
+        std::cout << "    " << key << ": \"" << *s->get() << "\"," << std::endl;
+      } else if (auto b = std::get_if<std::unique_ptr<const bool>>(&att)) {
+        std::cout << "    " << key << ": " << *b->get() << "," << std::endl;
+      } else if (auto c = std::get_if<std::unique_ptr<const double>>(&att)) {
+        std::cout << "    " << key << ": " << *c->get() << "," << std::endl;
+      } else if (auto i = std::get_if<std::unique_ptr<const int64_t>>(&att)) {
+        std::cout << "    " << key << ": " << *i->get() << "," << std::endl;
+      }
+    }
+    std::cout << "  }" << std::endl;
+  }
 }
 
 template<>

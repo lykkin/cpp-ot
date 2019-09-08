@@ -1,3 +1,5 @@
+#include <iostream>
+
 #include "open-telemetry/trace/tracer.h"
 
 namespace ot {
@@ -22,7 +24,15 @@ void Tracer::set_current_span(Span* s) {
 }
 
 void Tracer::on_span_end(const Span* const span) {
-  span->get_context()->get_trace_id();
+  std::cout << "{" << std::endl;
+  std::cout << "  \"name\": \"" << span->get_name()
+    << "\"," << std::endl;
+  std::cout << "  \"timestamp\": " << span->get_start_time().count()
+    << "," << std::endl;
+  std::cout << "  \"duration\": " << span->get_duration().count()
+    << "," << std::endl;
+  span->print_attributes();
+  std::cout << "}" << std::endl;
 }
 }  // namespace trace
 }  // namespace ot
