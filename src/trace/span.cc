@@ -63,20 +63,20 @@ void Span::print_attributes() const {
     std::cout << "  \"attributes\": {" << std::endl;
     for (auto&& [ key, att ] : attributes) {
       if (std::holds_alternative<std::unique_ptr<const std::string>>(att)) {
-        auto& v = std::get<std::unique_ptr<const std::string>>(att);
-        std::cout << "    " << key << ": \"" << v.get() << "\"," << std::endl;
+        auto v = *std::get<std::unique_ptr<const std::string>>(att).get();
+        std::cout << "    " << key << ": \"" << v << "\"," << std::endl;
       } else if (std::holds_alternative<std::unique_ptr<const double>>(att)) {
-        auto& v = std::get<std::unique_ptr<const double>>(att);
-        std::cout << "    " << key << ": " << v.get() << "," << std::endl;
+        auto v = *std::get<std::unique_ptr<const double>>(att).get();
+        std::cout << "    " << key << ": " << v << "," << std::endl;
       } else if (std::holds_alternative<std::unique_ptr<const bool>>(att)) {
-        auto& v = std::get<std::unique_ptr<const bool>>(att);
-        std::cout << "    " << key << ": " << v.get() << "," << std::endl;
+        auto v = *std::get<std::unique_ptr<const bool>>(att).get();
+        std::cout << "    " << key << ": " << v << "," << std::endl;
       } else if (std::holds_alternative<std::unique_ptr<const int64_t>>(att)) {
-        auto& v = std::get<std::unique_ptr<const int64_t>>(att);
-        std::cout << "    " << key << ": " << v.get() << "," << std::endl;
+        auto v = *std::get<std::unique_ptr<const int64_t>>(att).get();
+        std::cout << "    " << key << ": " << v << "," << std::endl;
       }
     }
-    std::cout << "  }" << std::endl;
+    std::cout << "  }," << std::endl;
   }
 }
 
