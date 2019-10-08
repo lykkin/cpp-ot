@@ -25,7 +25,10 @@ void tracer_on_span_end(Tracer* const, const Span* const);
 
 //  SPAN METHODS
 Span* span_create(const char*, Tracer* const, const SpanContext* const);
+void span_destroy(Span* const);
 void span_end(Span*);
+void span_set_aux(Span* const, void*);
+void* span_get_aux(const Span* const);
 
 //  SPAN CONTEXT METHODS
 //  SpanContext* span_context_create();

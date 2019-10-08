@@ -20,7 +20,8 @@ Span::Span(
   context(new SpanContext(parent)),
   parent_context(parent),
   start_time(get_timestamp()),
-  end_time(0)
+  end_time(0),
+  aux(NULL)
 {}
 
 Span::Span(const std::string& name, Tracer* const t) : Span(name, t, nullptr) {}
@@ -126,6 +127,14 @@ const SpanContext* Span::get_context() const {
 
 const SpanContext* Span::get_parent_context() const {
   return parent_context;
+}
+
+void Span::set_aux(void* ptr) {
+  aux = ptr;
+}
+
+void* Span::get_aux() const {
+  return aux;
 }
 }  // namespace trace
 }  // namespace ot

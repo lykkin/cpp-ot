@@ -42,6 +42,17 @@ Span* span_create(
     )
   );
 }
+void span_destroy(Span* v) {
+  delete reinterpret_cast<ot::trace::Span*>(v);
+}
 void span_end(Span* s) {
   reinterpret_cast<ot::trace::Span*>(s)->end();
+}
+
+void span_set_aux(Span* const s, void* ptr) {
+  reinterpret_cast<ot::trace::Span* const>(s)->set_aux(ptr);
+}
+
+void* span_get_aux(const Span* const s) {
+  return reinterpret_cast<const ot::trace::Span* const>(s)->get_aux();
 }

@@ -32,6 +32,8 @@ class Span {
   T get_attribute(const std::string&) const;
   const SpanContext* get_context() const;
   const SpanContext* get_parent_context() const;
+  void set_aux(void*);
+  void* get_aux() const;
 
  private:
   Tracer* const tracer;
@@ -49,6 +51,7 @@ class Span {
       std::unique_ptr<const double>
     >
   > attributes;
+  void* aux;
 };
 }  // namespace trace
 }  // namespace ot
